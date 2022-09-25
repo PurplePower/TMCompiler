@@ -1,0 +1,30 @@
+# input: n_m_k
+
+if (0) halt
+
+write 0	# erase 1 from n
+right
+
+while (1) right	# between n and m
+right
+while (1) right # between m and k
+
+// add 1 to m, subtract 1 from k
+write 1
+right
+write 0
+right
+
+while (1) right
+write 1     # add 2 to (k-1)
+right
+write 1
+
+// move back to first 1
+while(1) left   # between m and k
+left
+while(1) left   # between n and m
+left            # at n's right most 1, or 0 if n==1
+while(1) left
+while(0) right
+

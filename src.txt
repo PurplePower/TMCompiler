@@ -1,0 +1,54 @@
+// min(x, y), x, y are positive integers
+// we do so by cancelling x and y alternatively, and write 1 to result
+// input: x_y
+// goto rightmost, set up result to 1
+while(1) right
+right
+while(1) right
+right
+write 1
+left
+
+Loop:
+
+// cancel out 1 in y
+while(0) left
+write 0
+left    // peek if y is exhausted
+if(0) goto Rmvx
+
+while(1) left
+while(0) left   // now at x's right
+write 0
+left
+if(0) goto Rmvy
+
+// go to write result
+right
+while(0) right
+while(1) right  // at y's right
+while(0) right
+while(1) right
+write 1
+
+// go back to loop position
+while(1) left
+goto Loop
+
+Rmvx:
+while(0) left
+L2: write 0
+left
+if(1) goto L2
+goto End
+
+Rmvy:
+while(0) right
+L3: write 0
+right
+if(1) goto L3
+goto End
+
+End: while(0) right
+
+
