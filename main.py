@@ -2,10 +2,11 @@ from ply import lex
 from ply import yacc
 import lex_rules
 import yacc_rules
+import Manager
 
 if __name__ == '__main__':
 
-    with open('src.txt', 'r') as f:
+    with open('src/src.txt', 'r') as f:
         text = f.read()
 
     lexer = lex.lex(module=lex_rules)
@@ -32,8 +33,17 @@ if __name__ == '__main__':
         None: '*'
     }
 
+    with open('src/src.txt', 'r') as f:
+        text = f.readlines()
+
+    mn = Manager.mn
+
     for state in sm.states:
-        script += f'; state {state.name}\n'
+        script += f'; state {state.name}'
+        lineno = mn.get_state_lineno(state)
+        if lineno:
+            script += f' # line {lineno}\t{text[lineno - 1]}'
+        script += '\n'
         for x, t in state.transitions.items():
             if t.act == 'left' or t.act == 'right':
                 script += f'{state.name} {sym(x)} * {action_convert[t.act]} {t.next_state.name}\n'

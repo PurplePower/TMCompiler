@@ -14,8 +14,6 @@ class Manager:
         # labels recording
         self.label_pos = {}  # label -> state, each label points to only one stmt
         self.labels = {}  # record all appeared labels, label -> defined line
-        self.last_saw_label = None
-        self.last_saw_label_line = 0
 
         # delayed non-label transitions
         self.delayed_transitions = []  # (x, act, src_state)
@@ -23,12 +21,22 @@ class Manager:
         # delayed label jump transitions
         self.delayed_jumps = {}  # label -> List of (x, act, src_state)
 
+        # verbose
+        self.state_lineno = {}  # state -> lineno
+
         # warnings and errors
         self.warnings = []
         self.errors = []
 
     ###############################################
     # label recording
+
+    def define_label(self, label, lineno):
+        if label in self.labels:
+            self.errors.append(
+                f'Redefined label {label} at line {lineno}, previously at {self.labels[label]}')
+        else:
+            self.labels[label] = lineno
 
     def associate_label(self, label, state):
         """
@@ -82,13 +90,15 @@ class Manager:
     ###############################################
     # state management
 
-    def add_stmt_state(self):
+    def add_stmt_state(self, lineno=None):
         """
         Add a beginning state for a stmt. Also connect delayed transitions.
         :return: added state
         """
         s = self.sm.add_state()
         self._connect_delayed_transitions(s)
+        if lineno:
+            self.state_lineno[s] = lineno
         return s
 
     def add_state(self):
@@ -116,6 +126,9 @@ class Manager:
             for e in self.errors:
                 print(f'[error] {e}')
             raise Exception('Parse error exists.')
+
+    def get_state_lineno(self, s):
+        return self.state_lineno.get(s, None)
 
     ###############################################
     # utils

@@ -1,0 +1,22 @@
+// parity determining
+// scan a continuous block of strokes
+// if number of strokes are odd, tm halts
+// scanning a stroke; otherwise halts scanning
+// a blank
+
+start:
+if(0) goto even_halt
+write 0
+right	// now scanned odd
+
+if(0) goto odd_halt
+write 0
+right	// now scanned even
+goto start
+
+odd_halt:
+write 1
+even_halt:
+halt
+
+

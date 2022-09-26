@@ -1,0 +1,56 @@
+// multiply(p, q) = p*q
+// p as counter, while each 1 in p moves q right q blocks(leapfrog)
+// when p ends, at 2 blocks right to p's rightmost 1 is the
+// beginning of the result
+
+// input: p_q
+
+Counter_check:
+write 0
+right
+if(0) goto End  // counter consumed
+
+while(1) right
+while(0) right  // reaches q's left
+
+Leapfrog:
+// starts at leftmost of q
+// check if it's the last one to move
+right
+if(0) goto Leapfrog_last
+left
+write 0
+right
+while(1) right  // at separating blank
+right
+while(1) right
+write 1     // moved
+
+// go back to yet to move
+while(1) left
+left
+while(1) left
+right
+goto Leapfrog
+
+
+Leapfrog_last:
+write 1 // write separating blank
+left
+write 0
+goto Leapfrog_end
+
+Leapfrog_end:   // leapfrog ends at one block left to q
+while(0) left
+while(1) left
+right   // back to counter's left
+goto Counter_check
+
+
+End:
+right
+    Fill:
+    if(1) halt
+    write 1
+    right
+    goto Fill
