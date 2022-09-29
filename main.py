@@ -9,7 +9,7 @@ import Manager
 
 if __name__ == '__main__':
 
-    filename = 'src/min.txt'
+    filename = 'src/multiply.txt'
 
     with open(filename, 'r') as f:
         text = f.read()
@@ -50,8 +50,9 @@ if __name__ == '__main__':
         lineno = mn.get_state_lineno(state)
         if lineno:
             script += f' # line {lineno}\t{text[lineno - 1]}'
-        else:
+        if script[-1] != '\n':
             script += '\n'
+
         for x, t in state.transitions.items():
             if t.act == 'left' or t.act == 'right':
                 script += f'{state.name} {sym(x)} * {action_convert[t.act]} {t.next_state.name}\n'
