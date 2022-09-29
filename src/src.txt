@@ -50,7 +50,11 @@ goto Counter_check
 End:
 right
     Fill:
-    if(1) halt
+    if(1) goto End2
     write 1
     right
     goto Fill
+
+End2:
+while(1) left
+right

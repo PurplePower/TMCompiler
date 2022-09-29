@@ -1,158 +1,138 @@
-; state 0 # line 9	write 0
+; state 0 # line 5	while(1) right
+0 1 * r 0
+0 _ * * 1
 
-0 _ _ * 1
-0 1 _ * 1
-
-; state 1 # line 10	right
-
+; state 1 # line 6	right
 1 _ * r 2
 1 1 * r 2
 
-; state 2 # line 11	if(0) goto End  // counter consumed
+; state 2 # line 7	while(1) right
+2 1 * r 2
+2 _ * * 3
 
-2 1 * * 3
-2 _ * * 27
+; state 3 # line 8	right
+3 _ * r 4
+3 1 * r 4
 
-; state 3 # line 13	while(1) right
+; state 4 # line 9	write 1
+4 _ 1 * 5
+4 1 1 * 5
 
-3 1 * r 3
-3 _ * * 4
+; state 5 # line 10	left
+5 _ * l 6
+5 1 * l 6
 
-; state 4 # line 14	while(0) right  // reaches q's left
-
-4 _ * r 4
-4 1 * * 5
-
-; state 5 # line 19	right
-
-5 _ * r 6
-5 1 * r 6
-
-; state 6 # line 20	if(0) goto Leapfrog_last
-
+; state 6 # line 15	while(0) left
+6 _ * l 6
 6 1 * * 7
-6 _ * * 19
 
-; state 7 # line 21	left
+; state 7 # line 16	write 0
+7 _ _ * 8
+7 1 _ * 8
 
-7 _ * l 8
-7 1 * l 8
+; state 8 # line 17	left    // peek if y is exhausted
+8 _ * l 9
+8 1 * l 9
 
-; state 8 # line 22	write 0
+; state 9 # line 18	if(0) goto Rmvx
+9 1 * * 10
+9 _ * * 23
 
-8 _ _ * 9
-8 1 _ * 9
-
-; state 9 # line 23	right
-
-9 _ * r 10
-9 1 * r 10
-
-; state 10 # line 24	while(1) right  // at separating blank
-
-10 1 * r 10
+; state 10 # line 20	while(1) left
+10 1 * l 10
 10 _ * * 11
 
-; state 11 # line 25	right
+; state 11 # line 21	while(0) left   // now at x's right
+11 _ * l 11
+11 1 * * 12
 
-11 _ * r 12
-11 1 * r 12
+; state 12 # line 22	write 0
+12 _ _ * 13
+12 1 _ * 13
 
-; state 12 # line 26	while(1) right
+; state 13 # line 23	left
+13 _ * l 14
+13 1 * l 14
 
-12 1 * r 12
-12 _ * * 13
+; state 14 # line 24	if(0) goto Rmvy
+14 1 * * 15
+14 _ * * 28
 
-; state 13 # line 27	write 1     // moved
+; state 15 # line 27	right
+15 _ * r 16
+15 1 * r 16
 
-13 _ 1 * 14
-13 1 1 * 14
+; state 16 # line 28	while(0) right
+16 _ * r 16
+16 1 * * 17
 
-; state 14 # line 30	while(1) left
+; state 17 # line 29	while(1) right  // at y's right
+17 1 * r 17
+17 _ * * 18
 
-14 1 * l 14
-14 _ * * 15
+; state 18 # line 30	while(0) right
+18 _ * r 18
+18 1 * * 19
 
-; state 15 # line 31	left
+; state 19 # line 31	while(1) right
+19 1 * r 19
+19 _ * * 20
 
-15 _ * l 16
-15 1 * l 16
+; state 20 # line 32	write 1
+20 _ 1 * 21
+20 1 1 * 21
 
-; state 16 # line 32	while(1) left
+; state 21 # line 35	while(1) left
+21 1 * l 21
+21 _ * * 22
 
-16 1 * l 16
-16 _ * * 17
+; state 22 # line 36	goto Loop
+22 _ * * 6
+22 1 * * 6
 
-; state 17 # line 33	right
-
-17 _ * r 18
-17 1 * r 18
-
-; state 18 # line 34	goto Leapfrog
-
-18 _ * * 5
-18 1 * * 5
-
-; state 19 # line 38	write 1 // write separating blank
-
-19 _ 1 * 20
-19 1 1 * 20
-
-; state 20 # line 39	left
-
-20 _ * l 21
-20 1 * l 21
-
-; state 21 # line 40	write 0
-
-21 _ _ * 22
-21 1 _ * 22
-
-; state 22 # line 41	goto Leapfrog_end
-
-22 _ * * 23
-22 1 * * 23
-
-; state 23 # line 44	while(0) left
-
+; state 23 # line 39	while(0) left
 23 _ * l 23
 23 1 * * 24
 
-; state 24 # line 45	while(1) left
+; state 24 # line 40	L2: write 0
+24 _ _ * 25
+24 1 _ * 25
 
-24 1 * l 24
-24 _ * * 25
+; state 25 # line 41	left
+25 _ * l 26
+25 1 * l 26
 
-; state 25 # line 46	right   // back to counter's left
+; state 26 # line 42	if(1) goto L2
+26 1 * * 24
+26 _ * * 27
 
-25 _ * r 26
-25 1 * r 26
+; state 27 # line 43	goto End
+27 _ * * 33
+27 1 * * 33
 
-; state 26 # line 47	goto Counter_check
+; state 28 # line 46	while(0) right
+28 _ * r 28
+28 1 * * 29
 
-26 _ * * 0
-26 1 * * 0
+; state 29 # line 47	L3: write 0
+29 _ _ * 30
+29 1 _ * 30
 
-; state 27 # line 51	right
-
-27 _ * r 28
-27 1 * r 28
-
-; state 28 # line 53	    if(1) halt
-
-28 _ * * 29
-
-; state 29 # line 54	    write 1
-
-29 _ 1 * 30
-29 1 1 * 30
-
-; state 30 # line 55	    right
-
+; state 30 # line 48	right
 30 _ * r 31
 30 1 * r 31
 
-; state 31 # line 56	    goto Fill
-31 _ * * 28
-31 1 * * 28
+; state 31 # line 49	if(1) goto L3
+31 1 * * 29
+31 _ * * 32
+
+; state 32 # line 50	goto End
+32 _ * * 33
+32 1 * * 33
+
+; state 33 # line 52	End: while(0) right
+33 _ * r 33
+33 1 * * 34
+
+; state 34
 
